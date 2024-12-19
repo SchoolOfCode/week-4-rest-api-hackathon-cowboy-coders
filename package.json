@@ -1,0 +1,18 @@
+{
+  "name": "week-4-rest-api-hackathon-cowboy-coders",
+  "version": "1.0.0",
+  "description": "Feel free to delete this and start from scratch.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "express": "^4.21.2"
+  }
+}
