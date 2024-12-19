@@ -36,22 +36,39 @@ app.get("/", function (req, res) {
     res.send("Welcome to Steam Games");
 });
 
+//Get all games 
 app.get("/games", async function (req, res) {
-    const allGames = await getGames();
-    res.json(allGames);
+    try {
+        const allGames = await getGames(); // Attempt to fetch games
+        res.json(allGames); // Respond with the data
+    } catch (error) {
+        console.error("Error fetching games:", error); // Log the error for debugging
+        res.status(500).json({ error: "An error occurred while fetching the games." }); // Send a 500 status with a message
+    }
 });
 
+//Get a specific game using its ID
 app.get("/games/:placeholder", async function (req, res) {
-    const id = req.params.placeholder;
-    const specificGame = await getGameById(id);
-    res.json(specificGame);
+    try {
+        const id = req.params.placeholder;
+        const specificGame = await getGameById(id); // Get game from its ID
+        res.json(specificGame); // Respond with the Game data
+    }   catch (error) {
+        console.error("Error fetching game:", error); // Log the error for debugging
+        res.status(500).json({ error: "An error occurred while fetching this game." }); // Send a 500 status with a message
+    }
 });
 
-
+//Get a specific game's price using its ID
 app.get("/games/:id/price", async function (req, res) {
-    const id = req.params.id;
-    const price  = await getGamePriceById(id);
-    res.json(price);
+    try {
+        const id = req.params.id;
+        const price  = await getGamePriceById(id); // Get game from its ID
+        res.json(price); // Respond with the price of the Game 
+    }   catch (error) {
+        console.error("Error fetching game:", error); // Log the error for debugging
+        res.status(500).json({ error: "An error occurred while fetching this game." }); // Send a 500 status with a message
+    }
 });
 
 // 
