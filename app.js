@@ -22,6 +22,14 @@ import fs from "fs";
 
 const app = express();
 const port = 3000;
+
+
+
+import { 
+    readGames,
+    writeGames,
+    getGamePriceById,
+} from "helpers.js";
 app.use(express.json());
 
 const loadData = () => {
@@ -29,15 +37,54 @@ const loadData = () => {
     return JSON.parse(rawData);
 };
 
-app.get("/games", (req, res) => {
-    const data = loadData();
-    res.json(data);
-});
+app.get("/games/:id/price", async function (req, res) {
+    const id = req.params.id;
+    const price  = await getGamePriceById(id);
+    res.json(price);
+})
 
-/* export*/ async function getGameByName(search) {
-    const name = search.toLowerCase();
-    return games.filter
-}
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
