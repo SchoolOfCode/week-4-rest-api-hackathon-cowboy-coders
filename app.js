@@ -23,69 +23,53 @@ import fs from "fs";
 const app = express();
 const port = 3000;
 
-
-
 import { 
-    readGames,
-    writeGames,
-    getGamePriceById,
-} from "helpers.js";
+    getGames,
+    getGameById,
+    getGamePriceById
+} from "./game.js";
+
 app.use(express.json());
 
-const loadData = () => {
-    const rawData = fs.readFileSync("archive/games.json", "utf8");
-    return JSON.parse(rawData);
-};
+
+app.get("/", function (req, res) {
+    res.send("Welcome to Steam Games");
+});
+
+app.get("/games", async function (req, res) {
+    const allGames = await getGames();
+    res.json(allGames);
+});
+
+app.get("/games/:placeholder", async function (req, res) {
+    const id = req.params.placeholder;
+    const specificGame = await getGameById(id);
+    res.json(specificGame);
+});
+
 
 app.get("/games/:id/price", async function (req, res) {
     const id = req.params.id;
     const price  = await getGamePriceById(id);
     res.json(price);
-})
+});
 
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 
+/* app.get("/games/price", async function (req, res) {
+    const price = req.params.price;
+    const games = await getGameByPrice(price);
+    res.json(games);
+})*/
 
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+
+
+
+/* const loadData = () => {
+    const rawData = fs.readFileSync("archive/games.json", "utf8");
+    return JSON.parse(rawData);
+}; */
